@@ -20,7 +20,7 @@ def main():
     attackProbe = ['ipsweep','portsweep','nmap','satan','saint','mscan']
 
     # Guardamos los datos en una variable "data"
-    data = np.loadtxt("KDDtrain.txt", delimiter=",", dtype = str)
+    data = np.loadtxt("KDDTrain.txt", delimiter=",", dtype = str)
     print("------------------DATA---------------------")
     print(f'Size: {data.size}')
     print(f'dimension: {data.shape}')
