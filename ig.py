@@ -40,12 +40,19 @@ def main():
     normalized_data = norm_data_sigmoidal(data)
     
     # Cargar la configuración
-    m, t = np.loadtxt(config_file_path, delimiter=",", dtype=int, max_rows=2)
+    m, t, c = np.loadtxt(config_file_path, delimiter=",", dtype=int, max_rows=3)
     
     # Crear los vectores-embedding
     N = len(normalized_data)
     M = N - (m - 1) * t
     embedding_vectors = np.array([normalized_data[i:i + m * t:t] for i in range(M)])    
+
+    symbol_vectors = np.round(c * embedding_vectors + 0.5).astype(int)
+    print("Muestra de vectores-embedding:")
+    print(embedding_vectors)
+
+    print("Muestra de vectores de símbolos:")
+    print(symbol_vectors)
 if __name__ == '__main__':   
     main()
 
