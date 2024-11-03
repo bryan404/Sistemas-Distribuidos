@@ -52,13 +52,13 @@ def main():
         # Si el ataque es "normal" se guarda como "1"
         if auxData[i][41] == 'normal':
             auxData[i][41] = 1
-            class1.append(auxData[i])
+            class1.append(auxData[i][:-1])
             pass
         # Si el ataque es "Probe" se guarda como "3"
         for k in range(len(attackProbe)):
             if auxData[i][41] == attackProbe[k]:
                 auxData[i][41] = 3
-                class3.append(auxData[i])
+                class3.append(auxData[i][:-1])
                 pass
         # Si el ataque es "DOS" se guarda como "2"
         """ auxData[i][41] = 2
@@ -66,7 +66,7 @@ def main():
         for k in range(len(attackDOS)):
             if auxData[i][41] == attackDOS[k]:
                 auxData[i][41] = 2
-                class2.append(auxData[i])
+                class2.append(auxData[i][:-1])
             
     # -> Ver datos <- (Se puede eliminar)
     """ print("------------------auxData---------------------")
