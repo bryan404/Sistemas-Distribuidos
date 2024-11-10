@@ -78,9 +78,9 @@ def inform_gain(data, clases, m, t, c, top_k):
     print(f"\nTop-{top_k} variables seleccionadas: {selected_features_indices}")
 
     # Paso 5: Crear la nueva base de datos con las variables seleccionadas (ajustando a índice base 0 para el slicing)
-    X_reduced = data[:, [idx - 1 for idx in selected_features_indices]]
+    data_reduced = data[:, [idx - 1 for idx in selected_features_indices]]
 
-    return indices_ordenados, X_reduced
+    return indices_ordenados, data_reduced
 
 # Load dataClass 
 def load_data(file_path):   
@@ -100,7 +100,7 @@ def main():
     m, t, c, top_k = np.loadtxt("config.csv", delimiter=",", dtype=int, max_rows=4)    
 
     # Calcular el Information Gain
-    k_indices, x_reduced = inform_gain(caracteristicas, clases, m, t, c, top_k)
+    k_indices, caracteristicas_reduced = inform_gain(caracteristicas, clases, m, t, c, top_k)
 
     # Guardar todos los índices ordenados en Idx_variable.csv
     np.savetxt('Idx_variable.csv', k_indices, delimiter=',', fmt='%d')
