@@ -75,7 +75,7 @@ def inform_gain(data, clases, m, t, c, top_k):
 
     # Paso 4: Seleccionar las top-k variables relevantes
     selected_features_indices = [idx + 1 for idx, _ in valores_ig[:top_k]]  # Ajuste de índice +1 para contar desde 1
-    print(f"\nTop-{top_k} variables seleccionadas: {selected_features_indices}")
+    print(f"Top-{top_k} variables seleccionadas: {selected_features_indices}")
 
     # Paso 5: Crear la nueva base de datos con las variables seleccionadas (ajustando a índice base 0 para el slicing)
     data_reduced = data[:, [idx - 1 for idx in selected_features_indices]]
@@ -105,7 +105,7 @@ def main():
     # Guardar todos los índices ordenados en Idx_variable.csv
     np.savetxt('Idx_variable.csv', k_indices, delimiter=',', fmt='%d')
     # Guardar la base de datos con solo las variables más relevantes en DataIG.csv
-    np.savetxt('DataIG.csv', x_reduced, delimiter=',', fmt='%f')
+    np.savetxt('DataIG.csv', caracteristicas_reduced, delimiter=',', fmt='%f')
 
 if __name__ == '__main__':   
 	 main()
