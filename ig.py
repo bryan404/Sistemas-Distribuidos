@@ -85,7 +85,7 @@ def inform_gain(data, clases, m, t, c, top_k):
 # Load dataClass 
 def load_data(file_path):   
     # Cargar los datos desde el archivo CSV
-    data = np.genfromtxt(file_path, delimiter=',', dtype=float)
+    data = np.loadtxt(file_path, delimiter=',', dtype=float)
     return data
 
 # Beginning ...
