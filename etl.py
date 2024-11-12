@@ -49,17 +49,20 @@ def main():
                 auxData[i][3] = k
         
         # Tranformamos el dato "class" que corresponde al ataque a numérico
-        # Si el ataque es "normal" se guarda como "1"
+        # Si el flujo es "normal" se guarda como "1"
+        tipo_encontrado = False # Variable que indica si se pudo asignar el flujo en las 3 categorias
         if auxData[i][41] == 'normal':
             auxData[i][41] = 1
             class1.append(auxData[i][:-1])
-            pass
+            tipo_encontrado = True
+            continue
         # Si el ataque es "Probe" se guarda como "3"
         for k in range(len(attackProbe)):
             if auxData[i][41] == attackProbe[k]:
                 auxData[i][41] = 3
                 class3.append(auxData[i][:-1])
-                pass
+                tipo_encontrado = True
+                continue
         # Si el ataque es "DOS" se guarda como "2"
         """ auxData[i][41] = 2
         class2.append(auxData[i]) """
@@ -67,7 +70,11 @@ def main():
             if auxData[i][41] == attackDOS[k]:
                 auxData[i][41] = 2
                 class2.append(auxData[i][:-1])
-            
+                tipo_encontrado = True
+                continue
+        # Si el tipo de ataque no es ninguna de las 3 categorias, entonces se guarda como "4"
+        if tipo_encontrado == False:
+            auxData[i][41] = 4
     # -> Ver datos <- (Se puede eliminar)
     """ print("------------------auxData---------------------")
     print(f'Size: {auxData.size}')
