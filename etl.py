@@ -99,9 +99,9 @@ def main():
     # -> Ahora procederemos a crear el archivo de clases con las muestras. <-
 
     # Obtenemos los índices de los archivos idx_class
-    idx_class1 = np.loadtxt("idx_class1.csv", delimiter=",", dtype = int)
-    idx_class2 = np.loadtxt("idx_class2.csv", delimiter=",", dtype = int)
-    idx_class3 = np.loadtxt("idx_class3.csv", delimiter=",", dtype = int)
+    idx_class1 = np.loadtxt("idx_class1 (1).csv", delimiter=",", dtype = int)
+    idx_class2 = np.loadtxt("idx_class2 (1).csv", delimiter=",", dtype = int)
+    idx_class3 = np.loadtxt("idx_class3 (1).csv", delimiter=",", dtype = int)
 
     # Creamos matriz con datos de muestras
     dataM = []

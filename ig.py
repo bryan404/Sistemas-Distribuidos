@@ -16,19 +16,20 @@ def entropy_disp(data, m, t, c):
     # Paso 3: Mapear cada vector-embedding en c-símbolos
     y = np.round(c * vectores_embebidos + 0.5).astype(int)
     # Paso 4: Convertir el vector de símbolos en un número correspondiente a un patrón
-    patron_k = np.array([1 + np.dot(y_i - 1, c ** np.arange(m)[::-1]) for y_i in y])
+    patron_k = np.array([1 + np.dot(y_i - 1, c ** np.arange(m)[::]) for y_i in y])
 
     # Paso 5: Contar la frecuencia de ocurrencia de cada patrón
     unique, counts = np.unique(patron_k, return_counts=True)
     unique = unique.astype(int)  # Asegurarse de que los índices sean enteros
-    
+
     # Paso 6: Calcular la probabilidad de cada patrón
     p = counts / M
     p = p[p > 0]  # Eliminar probabilidades cero para evitar log(0)
 
     DE = -np.sum(p * np.log2(p))
+    nDE = DE / np.log2(c**m)  # Normalizar la entropía de dispersión
 
-    return DE
+    return nDE
 
 # Normalised by use sigmoidal
 def norm_data_sigmoidal(x):
@@ -45,7 +46,7 @@ def norm_data_sigmoidal(x):
 #Information gain
 def inform_gain(data, clases, m, t, c, top_k):    
     entropia_y = entropy_disp(clases, m, t, c) # Entropía de la variable de salida Y
-    
+
     N, d = data.shape
 
     valores_ig = [] # Vector para almacenar los valores de IG de cada variable
@@ -53,9 +54,8 @@ def inform_gain(data, clases, m, t, c, top_k):
     bins = int(np.sqrt(N)) # Número de bins (categorías) para discretizar las variables
 
     for j in range(d):
-        bin_edges = np.linspace(np.min(data[:, j]), np.max(data[:, j]), bins + 1) # Obtener límite inferior y superior de los bins
+        bin_edges = np.linspace(np.min(data[:, j]), np.max(data[:, j]), bins) # Obtener límite inferior y superior de los bins
         data_binned = np.digitize(data[:, j], bin_edges) - 1 # Indicar a que bin pertenece cada valor
-
         entropia_condicional_dj = 0
 
         for b in range(bins):
@@ -65,11 +65,13 @@ def inform_gain(data, clases, m, t, c, top_k):
                 d_ji = len(Y_in_bin)
                 bin_entropy = entropy_disp(Y_in_bin, m, t, c)
                 entropia_condicional_dj += (d_ji / N) * bin_entropy
-
         ig_j = entropia_y - entropia_condicional_dj
         valores_ig.append((j, ig_j))
 
     valores_ig = sorted(valores_ig, key=lambda x: x[1], reverse=True)
+    
+    for idx, valor in valores_ig:
+        print(f"Idx: {idx + 1} y Valor: {valor}")
 
     indices_ordenados = [idx + 1 for idx, _ in valores_ig]  # Ajuste de índice +1 para contar desde 1
 
